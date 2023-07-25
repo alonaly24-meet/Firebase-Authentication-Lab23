@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import session as login_session
 import pyrebase
+from datetime import datetime
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['SECRET_KEY'] = 'super-secret-key'
@@ -34,8 +35,6 @@ def signup():
         full_name = request.form["full_name"]
         bio=request.form["bio"]
         username=request.form['username']
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Get current timestamp
-
         user = { 'email': email,'password': password,'full_name': full_name,'username': username,'bio': bio}
         try:
             login_session['user']=auth.create_user_with_email_and_password(email, password)
@@ -58,8 +57,8 @@ def add_tweet():
         text=request.form["text"]
         title=request.form["title"]
         uid = login_session['user']['localId']
-
-        tweet = {'text': text,'title': title, 'uid': uid }
+        current_time = datetime.now(tz=None).strftime("%Y-%m-%d %H:%M:%S")
+        tweet = {'text': text,'title': title, 'uid': uid, 'timestamp': current_time }
         new_tweet_key = db.child('Tweets').push(tweet)
         return redirect(url_for('all_tweets'))
     else:
@@ -76,6 +75,19 @@ def signout():
 def all_tweets():
     tweets = db.child('Tweets').get().val()
     return render_template('tweets.html', tweets=tweets, get_username=get_username)
+
+# @app.route('/like_tweet', methods=['POST'])
+# def like_tweet(tweet_id):
+#     try tweet:
+#         tweet = db.child('Tweets').child(tweet_id).get().val()
+#         current_likes = tweet.get("likes", 0)
+#         updated=current_likes+1
+#         db.child('Tweets').child(tweet_id).update({"likes": updated_likes})
+#         return redirect(url_for('all_tweets'))
+#     except:
+#         return render_template("add_tweet.html")
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

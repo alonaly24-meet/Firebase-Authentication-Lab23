@@ -10,6 +10,12 @@
             <li>
                 <p>{{ tweets[tweet]["text"] }}</p>
                 <p>Written by: {{ get_username(tweet["uid"]) }}</p>
+                <p>Timestamp: {{ tweets[tweet]["timestamp"] }}</p>           
+     <!-- 
+<form method="post" action="/like_tweet/{{ tweet_id }}">
+                    <button type="submit">Like</button>
+                </form>
+    -->
 
             </li>
         {% endfor %}
