@@ -56,8 +56,7 @@ def add_tweet():
 
         tweet = {'text': text,'title': title, 'uid': uid }
         new_tweet_key = db.child('Tweets').push(tweet)
-
-        return render_template("add_tweet.html")
+        return redirect(url_for('all_tweets'))
     else:
         return render_template("add_tweet.html")
 

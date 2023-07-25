@@ -8,17 +8,11 @@
     <ul>
         {% for tweet in tweets %}
             <li>
-                <h3>{{ tweet.title }}</h3>
-                <p>{{ tweet.text }}</p>
+                <p>{{ tweets[tweet]["text"] }}</p>
                 <p>Written by: {{ tweet.uid }}</p>
+
             </li>
         {% endfor %}
-
-        <!-- Button -->
-        <div>
-            <input type="submit"/>
-        </div>
-        
     </ul>
 </body>
 </html>
