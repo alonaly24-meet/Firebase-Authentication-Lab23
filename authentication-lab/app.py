@@ -24,7 +24,7 @@ def signin():
         except:
             return redirect(url_for("signin"))
     else:
-        return render_template("signin")
+        return render_template("signin.html")
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -44,7 +44,7 @@ def signup():
         except:
             return redirect(url_for("signup"))
     else:
-        return render_template('signup')
+        return render_template('signup.html')
 
 def get_username(uid):
     UID=login_session['user']['localId'] 
