@@ -11,11 +11,14 @@
                 <p>{{ tweets[tweet]["text"] }}</p>
                 <p>Written by: {{ get_username(tweet["uid"]) }}</p>
                 <p>Timestamp: {{ tweets[tweet]["timestamp"] }}</p>           
-     <!-- 
-<form method="post" action="/like_tweet/{{ tweet_id }}">
+                <p>Likes: {{ tweets[tweet]["likes"] }}</p>           
+     
+<!-- <form method="post" action="/like_tweet/{{ tweet_id }}">
                     <button type="submit">Like</button>
                 </form>
-    -->
+                <p>Likes: {{ tweet.get("likes", 0) }}</p>  -->
+
+   
 
             </li>
         {% endfor %}
