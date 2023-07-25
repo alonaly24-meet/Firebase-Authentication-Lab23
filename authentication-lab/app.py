@@ -44,7 +44,7 @@ def signup():
         except:
             return redirect(url_for("signup"))
     else:
-        return render_template('signup.html')
+        return render_template('signup')
 
 def get_username(uid):
     UID=login_session['user']['localId'] 
@@ -58,7 +58,7 @@ def add_tweet():
         title=request.form["title"]
         uid = login_session['user']['localId']
         current_time = datetime.now(tz=None).strftime("%Y-%m-%d %H:%M:%S")
-        tweet = {'text': text,'title': title, 'uid': uid, 'timestamp': current_time }
+        tweet = {'text': text,'title': title, 'uid': uid, 'timestamp': current_time, 'likes':likes}
         new_tweet_key = db.child('Tweets').push(tweet)
         return redirect(url_for('all_tweets'))
     else:
