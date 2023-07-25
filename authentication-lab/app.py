@@ -34,6 +34,8 @@ def signup():
         full_name = request.form["full_name"]
         bio=request.form["bio"]
         username=request.form['username']
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Get current timestamp
+
         user = { 'email': email,'password': password,'full_name': full_name,'username': username,'bio': bio}
         try:
             login_session['user']=auth.create_user_with_email_and_password(email, password)
@@ -45,7 +47,10 @@ def signup():
     else:
         return render_template('signup.html')
 
-
+def get_username(uid):
+    UID=login_session['user']['localId'] 
+    writer = db.child("Users").child(UID).get().val()
+    return writer["username"]
 
 @app.route('/add_tweet', methods=['GET', 'POST'])
 def add_tweet():
@@ -70,7 +75,7 @@ def signout():
 @app.route('/all_tweets', methods=["GET","POST"])
 def all_tweets():
     tweets = db.child('Tweets').get().val()
-    return render_template('tweets.html', tweets=tweets)
+    return render_template('tweets.html', tweets=tweets, get_username=get_username)
 
 if __name__ == '__main__':
     app.run(debug=True)

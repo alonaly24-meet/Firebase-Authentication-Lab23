@@ -9,7 +9,7 @@
         {% for tweet in tweets %}
             <li>
                 <p>{{ tweets[tweet]["text"] }}</p>
-                <p>Written by: {{ tweet.uid }}</p>
+                <p>Written by: {{ get_username(tweet["uid"]) }}</p>
 
             </li>
         {% endfor %}
