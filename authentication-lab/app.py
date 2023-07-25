@@ -24,7 +24,7 @@ def signin():
         except:
             return redirect(url_for("signin"))
     else:
-        return render_template("signin.html")
+        return render_template("signin")
 
 
 @app.route('/signup', methods=['GET', 'POST'])
